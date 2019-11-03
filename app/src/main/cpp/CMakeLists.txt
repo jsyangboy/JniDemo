@@ -48,7 +48,9 @@ if (ENABLE_RTC EQUAL 1)
 endif ()
 
 #发现一个目录下所有的源代码文件并将列表存储在一个变量中。
-aux_source_directory(. SRC_LIST)# 搜索当前目录下的所有.cpp文件
+
+aux_source_directory(. SRC_LIST)# 搜索当前目录下的所有.cpp文件,该函数只能检索c++
+file(GLOB SRC_LIST_C "*.c")#通过这种方式可以检测c文件
 
 add_library( # Sets the name of the library.
         native-lib
@@ -57,7 +59,7 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        native-lib.c
+        ${SRC_LIST_C}
         ${SRC_LIST})
 
 
