@@ -10,6 +10,10 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -static-libstdc++")
+#set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O2 -Wall -std=c99")
+
+
 project(Audio)
 
 #增加编译宏
@@ -53,6 +57,7 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
+        native-lib.c
         ${SRC_LIST})
 
 

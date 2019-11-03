@@ -1,3 +1,5 @@
+//c ++ 的写法
+#if 0
 #include <jni.h>
 #include <string>
 
@@ -15,4 +17,19 @@ Java_itboy_jnidemo_MainActivity_stringFromJNI(
 #endif
 
 }
+#else
+//c的写法
+#include <jni.h>
+#include <stdlib.h>
+#include <stdio.h>
+JNIEXPORT jstring JNICALL Java_itboy_jnidemo_MainActivity_stringFromJNI(
+        JNIEnv* env,jobject cls) {
+#ifdef ENABLE_RTC
+    return (*env)->NewStringUTF(env, "你好,RTC");
+#else
+    return (*env)->NewStringUTF(env, "你好,我来自C代码 !!!");
+#endif
+}
+#endif
+
 
