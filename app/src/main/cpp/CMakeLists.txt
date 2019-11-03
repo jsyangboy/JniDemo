@@ -14,13 +14,15 @@ project(Audio)
 
 #增加编译宏
 add_definitions(-D ANDROID )
-#add_definitions(-ENABLE_RTC NO)
 
 #打印
 message(STATUS "********************************")
 message(STATUS "CMAKE_SOURCE_DIR->" ${CMAKE_SOURCE_DIR})
 message(STATUS "PROJECT_SOURCE_DIR->" ${PROJECT_SOURCE_DIR})
 message(STATUS "********************************")
+
+#设置是否启用RTC
+set(ENABLE_RTC 1)
 
 #设置ffmpeg的目录变量
 set(LIZHI_FFMPEG_DIR ffmpeg)
@@ -31,9 +33,12 @@ set(LIZHI_RTC_DIR rtc)
 
 link_directories(${LIZHI_FFMPEG_DIR}/lib)
 
-#if(ENABLE_RTC)
-link_directories(${LIZHI_RTC_DIR}/lib)
-#endif()
+#如果启动了RTC，增加编译宏 ENABLE_RTC
+if(ENABLE_RTC EQUAL 1)
+    message(STATUS "enable rtc")
+    link_directories(${LIZHI_RTC_DIR}/lib) #设置RTC的lib
+    add_definitions(-DENABLE_RTC)#增加ENABLE_RTC 宏，可以在c代码中做其他处理
+endif()
 
 #发现一个目录下所有的源代码文件并将列表存储在一个变量中。
 aux_source_directory(. SRC_LIST)# 搜索当前目录下的所有.cpp文件
@@ -66,8 +71,6 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 #设置ffmpeg的路径
-
-
 target_link_libraries( # Specifies the target library.
                        native-lib
 
