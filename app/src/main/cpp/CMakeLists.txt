@@ -36,6 +36,10 @@ set(LIZHI_FFMPEG_DIR ffmpeg)
 #设置rt的目录变量
 set(LIZHI_RTC_DIR rtc)
 
+#设置include的路径
+include_directories(
+        ${LIZHI_FFMPEG_DIR}/include
+)
 
 link_directories(${LIZHI_FFMPEG_DIR}/lib)
 
